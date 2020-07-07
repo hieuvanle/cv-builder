@@ -7,17 +7,19 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import { Login } from "./components";
+import { Login, Register } from "./components";
 
 function App() {
-  const [isAuth, setIsAuth] = React.useState(true);
+  const [isAuth, setIsAuth] = React.useState(false);
   return (
     <Router>
       <Switch>
         <Route path="/login">
           <Login />
         </Route>
-        <Route path="/register">Register</Route>
+        <Route path="/register">
+          <Register />
+        </Route>
         <Route path="/" exact>
           <Redirect to="/dashboard"></Redirect>
         </Route>

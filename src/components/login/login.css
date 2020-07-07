@@ -144,13 +144,11 @@ form p {
   color: #555;
 }
 
-.btn {
+.button {
   display: block;
   width: 100%;
   height: 50px;
   border-radius: 25px;
-  outline: none;
-  border: none;
   background-size: 200%;
   font-size: 1.2rem;
   font-family: "Poppins", sans-serif;
@@ -163,15 +161,19 @@ form p {
 .login {
   background-image: linear-gradient(to right, #0050b3, #1890ff, #69c0ff);
   color: #fff;
+  border: none;
+  outline: none;
+}
+
+.login:hover {
+  background-position: right;
 }
 
 .register {
   background: #fff;
   border: 2px solid #555;
   color: #555;
-}
-.login:hover {
-  background-position: right;
+  outline: none;
 }
 
 .register:hover {

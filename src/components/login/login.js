@@ -4,6 +4,7 @@ import "./login.css";
 import avatar from "../../assets/avatar.svg";
 import Layout from "../layout/layout";
 import { Checkbox } from "antd";
+import { Link } from "react-router-dom";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 const Login = () => {
@@ -35,9 +36,11 @@ const Login = () => {
               Forgot Password?
             </a>
           </div>
-          <button className="btn login">LOGIN</button>
+          <button className="button login">LOGIN</button>
           <p>Don't have an account?</p>
-          <button className="btn register">SIGN UP</button>
+          <Link to="/register">
+            <button className="button register">SIGN UP</button>
+          </Link>
         </form>
       </div>
     </Layout>
