@@ -1,25 +1,46 @@
 import React, { useState } from "react";
 import "./login.css";
-import background from "../../assets/background.svg";
-import { Button } from "antd";
+
+import avatar from "../../assets/avatar.svg";
+import Layout from "../layout/layout";
+import { Checkbox } from "antd";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 const Login = () => {
   return (
-    <div className="container">
-      <div className="container-left">
-        <h2>CV BUILDER</h2>
-        <div>
-          <h3>Small Change, Big Impact</h3>
-          <p>Get you ready for every interview</p>
-          <Button type="primary" shape="round" size="large">
-            VISIT A DEMO
-          </Button>
-        </div>
-        <img src={background} alt="background"></img>
+    <Layout>
+      <div className="login-content">
+        <form>
+          <img src={avatar} alt="avatar" />
+          <h2 className="title">Welcome back!</h2>
+          <div className="input-div one">
+            <div className="i">
+              <UserOutlined />
+            </div>
+            <div className="div">
+              <input type="text" className="input" placeholder="Email" />
+            </div>
+          </div>
+          <div className="input-div pass">
+            <div className="i">
+              <LockOutlined />
+            </div>
+            <div className="div">
+              <input type="password" className="input" placeholder="Password" />
+            </div>
+          </div>
+          <div className="form-func">
+            <Checkbox>Remember me</Checkbox>
+            <a href="/" className="forgot-password">
+              Forgot Password?
+            </a>
+          </div>
+          <button className="btn login">LOGIN</button>
+          <p>Don't have an account?</p>
+          <button className="btn register">SIGN UP</button>
+        </form>
       </div>
-
-      <div className="container-right">Hello</div>
-    </div>
+    </Layout>
   );
 };
 

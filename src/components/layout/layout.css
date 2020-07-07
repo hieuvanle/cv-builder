@@ -12,6 +12,7 @@
   display: flex;
   flex-direction: column;
   margin-left: 5rem;
+  margin-top: 1.5rem;
 }
 .container-left img {
   width: 500px;
@@ -27,7 +28,7 @@
 .container-left h3 {
   color: #fff;
   font-size: 45px;
-  width: 60%;
+  width: 50%;
   padding-left: 18px;
   line-height: 3rem;
 }
@@ -41,7 +42,7 @@
 
 .container-left button {
   color: #fff;
-  background-image: linear-gradient(55deg, #2a2a72 0%, #009ffd 74%);
+  background-image: linear-gradient(to right, #0050b3, #1890ff, #69c0ff);
   margin: 0 0 22px 15px;
   font-weight: 600;
 }
@@ -53,4 +54,5 @@
   margin: auto;
   border-radius: 12px;
   padding: 10px 20px;
+  box-shadow: 0 20px 50px #002766;
 }
