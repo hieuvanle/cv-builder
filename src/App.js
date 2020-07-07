@@ -15,10 +15,10 @@ function App() {
     <Router>
       <Switch>
         <Route path="/login">
-          <Login />
+          {!isAuth ? <Login /> : <Redirect to="/dashboard"></Redirect>}
         </Route>
         <Route path="/register">
-          <Register />
+          {!isAuth ? <Register /> : <Redirect to="/dashboard"></Redirect>}
         </Route>
         <Route path="/" exact>
           <Redirect to="/dashboard"></Redirect>

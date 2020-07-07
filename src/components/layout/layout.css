@@ -28,7 +28,6 @@
 .container-left h3 {
   color: #fff;
   font-size: 45px;
-  width: 50%;
   padding-left: 18px;
   line-height: 3rem;
 }
@@ -55,4 +54,30 @@
   border-radius: 12px;
   padding: 10px 20px;
   box-shadow: 0 20px 50px #002766;
+}
+
+@media screen and (max-width: 1359px) {
+  .container-left h3 {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container-right {
+    height: 90vh;
+    width: 80vw;
+    margin: auto;
+  }
+  .container-left {
+    display: none;
+  }
+
+  .login-content {
+    justify-content: center;
+  }
+}
+@media screen and (width: 768px) {
+  .container-right {
+    margin: 3rem 2rem 2rem 3rem;
+  }
 }

@@ -17,7 +17,6 @@ const Layout = ({ children }) => {
         </div>
         <img src={background} alt="background"></img>
       </div>
-
       <div className="container-right">{children}</div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useEffect } from "react";
 import "./login.css";
 
 import avatar from "../../assets/avatar.svg";
@@ -8,6 +8,10 @@ import { Link } from "react-router-dom";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 const Login = () => {
+  const focusRef = useRef(null);
+  useEffect(() => {
+    focusRef.current.focus();
+  });
   return (
     <Layout>
       <div className="login-content">
@@ -19,7 +23,12 @@ const Login = () => {
               <UserOutlined />
             </div>
             <div className="div">
-              <input type="text" className="input" placeholder="Email" />
+              <input
+                type="text"
+                className="input"
+                placeholder="Email"
+                ref={focusRef}
+              />
             </div>
           </div>
           <div className="input-div pass">

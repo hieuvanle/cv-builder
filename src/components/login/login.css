@@ -181,3 +181,29 @@ form p {
   color: #fff;
   border: none;
 }
+
+@media screen and (max-width: 1050px) {
+  .container {
+    grid-gap: 5rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .img {
+    display: none;
+  }
+
+  .form-func span {
+    font-size: 12px;
+  }
+
+  .form-func a {
+    font-size: 12px;
+    height: 1rem;
+    margin-top: 1.3rem;
+  }
+
+  .login-content {
+    justify-content: center;
+  }
+}

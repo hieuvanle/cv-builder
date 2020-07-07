@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useRef, useEffect } from "react";
 import "./register.css";
 
-import avatar from "../../assets/avatar.svg";
 import Layout from "../layout/layout";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 
 const Register = () => {
+  const focusRef = useRef(null);
+  useEffect(() => {
+    focusRef.current.focus();
+  });
   return (
     <Layout>
       <div className="login-content">
@@ -16,7 +19,12 @@ const Register = () => {
               <UserOutlined />
             </div>
             <div className="div">
-              <input type="text" className="input" placeholder="Name" />
+              <input
+                type="text"
+                className="input"
+                placeholder="Name"
+                ref={focusRef}
+              />
             </div>
           </div>
           <div className="input-div one">
@@ -38,12 +46,12 @@ const Register = () => {
           <div className="footer">
             <p>
               By clicking on Sign up, you agree to CV Builder's{" "}
-              <a>Terms and Conditions of Use</a>.
+              <a href="/register">Terms and Conditions of Use</a>.
             </p>
             <p>
               To learn more about how CV Builder collects, uses, shares and
               protects your personal data please read CV Builder's{" "}
-              <a>Privacy Policy</a>.
+              <a href="/register">Privacy Policy</a>.
             </p>
           </div>
           <button className="btn login">SIGN UP</button>
