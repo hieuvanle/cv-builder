@@ -7,10 +7,9 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import { Login, Register } from "./components";
-
+import { Login, Register, DashBoard } from "./components";
 function App() {
-  const [isAuth, setIsAuth] = React.useState(false);
+  const [isAuth, setIsAuth] = React.useState(true);
   return (
     <Router>
       <Switch>
@@ -24,7 +23,7 @@ function App() {
           <Redirect to="/dashboard"></Redirect>
         </Route>
         <Route path="/dashboard">
-          {isAuth ? "Dashboard" : <Redirect to="/login"></Redirect>}
+          {isAuth ? <DashBoard /> : <Redirect to="/login"></Redirect>}
         </Route>
       </Switch>
     </Router>
