@@ -6,7 +6,7 @@ body::-webkit-scrollbar-track {
   background: #1e1e24;
 }
 body::-webkit-scrollbar-thumb {
-  background: #6649b8;
+  background: #096dd9;
 }
 
 .dashboard-section {
@@ -39,10 +39,17 @@ body::-webkit-scrollbar-thumb {
 }
 
 .ant-layout-header .header-function {
-  width: 10vw;
+  min-width: 10vw;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-right: 1.5rem;
+}
+
+.ant-layout.site-layout main {
+  padding: 24px;
+  min-height: 120vh;
+  margin: 24px 16px;
 }
 
 .ant-layout-sider {

@@ -7,23 +7,23 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import { Login, Register, DashBoard } from "./components";
+import { Login, Register, Home } from "./components";
 function App() {
   const [isAuth, setIsAuth] = React.useState(true);
   return (
     <Router>
       <Switch>
         <Route path="/login">
-          {!isAuth ? <Login /> : <Redirect to="/dashboard"></Redirect>}
+          {!isAuth ? <Login /> : <Redirect to="/home"></Redirect>}
         </Route>
         <Route path="/register">
-          {!isAuth ? <Register /> : <Redirect to="/dashboard"></Redirect>}
+          {!isAuth ? <Register /> : <Redirect to="/home"></Redirect>}
         </Route>
         <Route path="/" exact>
-          <Redirect to="/dashboard"></Redirect>
+          <Redirect to="/home"></Redirect>
         </Route>
-        <Route path="/dashboard">
-          {isAuth ? <DashBoard /> : <Redirect to="/login"></Redirect>}
+        <Route path="/home">
+          {isAuth ? <Home /> : <Redirect to="/login"></Redirect>}
         </Route>
       </Switch>
     </Router>
