@@ -20,7 +20,7 @@ body::-webkit-scrollbar-thumb {
   padding: 0;
 }
 
-.site-layout .site-layout-background {
+.site-layout .ant-layout-header {
   background: #fff;
 }
 

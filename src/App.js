@@ -7,7 +7,7 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import { Login, Register, Home } from "./components";
+import { Login, Register, Home, Project } from "./components";
 function App() {
   const [isAuth, setIsAuth] = React.useState(true);
   return (
@@ -24,6 +24,9 @@ function App() {
         </Route>
         <Route path="/home">
           {isAuth ? <Home /> : <Redirect to="/login"></Redirect>}
+        </Route>
+        <Route path="/project">
+          <Project />
         </Route>
       </Switch>
     </Router>

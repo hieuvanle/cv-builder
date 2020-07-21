@@ -1,6 +1,8 @@
 import React from "react";
 import "./dashboard.css";
 
+import thomasAvatar from "../../assets/thomasAvatar.jpg";
+
 import {
   Layout,
   Menu,
@@ -26,10 +28,11 @@ import {
   TeamOutlined,
   CaretDownOutlined,
 } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
 
-const DashBoard = ({ children, title }) => {
+const DashBoard = ({ children, title, home }) => {
   //Component-Supporters
   const [collapsed, setCollapsed] = React.useState(false);
   const [visible, setVisible] = React.useState(false);
@@ -48,30 +51,13 @@ const DashBoard = ({ children, title }) => {
   const menu = (
     <Menu>
       <Menu.Item>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="http://www.alipay.com/"
-        >
-          1st menu item
+        <a target="_blank" rel="noopener noreferrer">
+          Settings
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="http://www.taobao.com/"
-        >
-          2nd menu item
-        </a>
-      </Menu.Item>
-      <Menu.Item>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="http://www.tmall.com/"
-        >
-          3rd menu item
+        <a target="_blank" rel="noopener noreferrer">
+          Logout
         </a>
       </Menu.Item>
     </Menu>
@@ -96,17 +82,17 @@ const DashBoard = ({ children, title }) => {
             className="logo"
             style={collapsed ? { height: "10vh" } : { margin: "0.3rem 0" }}
           >
-            <Avatar size={collapsed ? 48 : 78} icon={<UserOutlined />} />
-            <p style={collapsed ? { display: "none" } : null}>Abbey Nelson</p>
+            <Avatar size={collapsed ? 48 : 78} src={thomasAvatar} />
+            <p style={collapsed ? { display: "none" } : null}>Thomas Hanson</p>
           </div>
 
           <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
             <h3 style={collapsed ? { display: "none" } : null}>MENU</h3>
             <Menu.Item key="1" icon={<HomeOutlined />}>
-              Home
+              <Link to="/home">Home</Link>
             </Menu.Item>
             <Menu.Item key="2" icon={<ProjectFilled />}>
-              Projects
+              <Link to="/project">Projects</Link>
             </Menu.Item>
             <Menu.Item key="3" icon={<TeamOutlined />}>
               People
