@@ -196,8 +196,9 @@ const Home = () => {
               <h3 style={{ marginBottom: "1rem", marginTop: "1rem" }}>
                 People you may know
               </h3>
-              {people.map((person) => (
+              {people.map((person, index) => (
                 <div
+                  key={index}
                   style={{
                     display: "flex",
                     marginBottom: "0.7rem",

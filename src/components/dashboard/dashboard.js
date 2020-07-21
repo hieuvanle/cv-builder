@@ -28,11 +28,13 @@ import {
   TeamOutlined,
   CaretDownOutlined,
 } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
 
-const DashBoard = ({ children, title, home }) => {
+const DashBoard = (props) => {
+  const location = useLocation();
+  const { children, title, home } = props;
   //Component-Supporters
   const [collapsed, setCollapsed] = React.useState(false);
   const [visible, setVisible] = React.useState(false);
@@ -40,7 +42,6 @@ const DashBoard = ({ children, title, home }) => {
   const toggle = () => {
     setCollapsed(!collapsed);
   };
-
   const showDrawer = () => {
     setVisible(true);
   };
@@ -51,12 +52,12 @@ const DashBoard = ({ children, title, home }) => {
   const menu = (
     <Menu>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer">
+        <a href="/" rel="noopener noreferrer">
           Settings
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer">
+        <a href="/" rel="noopener noreferrer">
           Logout
         </a>
       </Menu.Item>
@@ -86,13 +87,18 @@ const DashBoard = ({ children, title, home }) => {
             <p style={collapsed ? { display: "none" } : null}>Thomas Hanson</p>
           </div>
 
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
+          <Menu
+            theme="dark"
+            mode="inline"
+            defaultSelectedKeys={["/home"]}
+            selectedKeys={[location.pathname]}
+          >
             <h3 style={collapsed ? { display: "none" } : null}>MENU</h3>
-            <Menu.Item key="1" icon={<HomeOutlined />}>
-              <Link to="/home">Home</Link>
+            <Menu.Item key="/home" icon={<HomeOutlined />}>
+              <NavLink to="/home">Home</NavLink>
             </Menu.Item>
-            <Menu.Item key="2" icon={<ProjectFilled />}>
-              <Link to="/project">Projects</Link>
+            <Menu.Item key="/project" icon={<ProjectFilled />}>
+              <NavLink to="/project">Projects</NavLink>
             </Menu.Item>
             <Menu.Item key="3" icon={<TeamOutlined />}>
               People
@@ -154,7 +160,6 @@ const DashBoard = ({ children, title, home }) => {
               </Dropdown>
             </div>
           </Header>
-
           <Content
             className="site-layout-background"
             style={
