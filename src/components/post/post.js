@@ -72,7 +72,6 @@ const Post = ({
           <Button
             shape="round"
             icon={likeToggled ? <HeartTwoTone /> : <HeartOutlined />}
-            ant-click-animating-without-extra-node={false}
             onClick={likeToggler}
           >
             {likeQuantity}

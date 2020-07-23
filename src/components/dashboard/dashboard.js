@@ -34,7 +34,7 @@ const { Header, Sider, Content } = Layout;
 
 const DashBoard = (props) => {
   const location = useLocation();
-  const { children, title, home } = props;
+  const { children, title } = props;
   //Component-Supporters
   const [collapsed, setCollapsed] = React.useState(false);
   const [visible, setVisible] = React.useState(false);

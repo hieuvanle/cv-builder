@@ -5,7 +5,6 @@ import graduationIcon from "../../assets/graduate.svg";
 import workIcon from "../../assets/work.svg";
 
 import { Avatar } from "antd";
-import { CalendarOutlined } from "@ant-design/icons";
 
 const BriefInfo = ({ background, avatar, name, job, education }) => {
   return (

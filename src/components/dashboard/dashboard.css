@@ -48,7 +48,6 @@ body::-webkit-scrollbar-thumb {
 
 .ant-layout.site-layout main {
   padding: 24px;
-  min-height: 120vh;
   margin: 24px 16px;
 }
 

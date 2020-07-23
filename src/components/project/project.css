@@ -1,0 +1,30 @@
+main > div.project-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+main > div > div.preview-container,
+div.info-container {
+  border-radius: 12px;
+  box-shadow: 0px 8px 15px #d3d3d3;
+  height: 80vh;
+  padding: 24px;
+}
+
+div.project-container > div.info-container {
+  width: 60%;
+}
+div.project-container > div.preview-container {
+  width: 30%;
+}
+
+div.workspace-container
+  > div.ant-steps.ant-steps-horizontal.ant-steps-label-horizontal {
+  margin-top: 1rem;
+}
+
+main > div > div > div.workspace-container {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+}
