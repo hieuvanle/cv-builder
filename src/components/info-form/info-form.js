@@ -78,7 +78,7 @@ const InfoForm = () => {
           </Form.Item>
         </Form>
       </div>
-      <h3>Professional Summary</h3>
+      <h3 style={{ marginBottom: "1rem" }}>Professional Summary</h3>
       <TextArea
         rows={4}
         style={{ width: "92%" }}

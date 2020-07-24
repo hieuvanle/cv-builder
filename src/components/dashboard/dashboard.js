@@ -27,6 +27,7 @@ import {
   ProfileOutlined,
   TeamOutlined,
   CaretDownOutlined,
+  SettingOutlined,
 } from "@ant-design/icons";
 import { NavLink, useLocation } from "react-router-dom";
 
@@ -107,7 +108,7 @@ const DashBoard = (props) => {
             <Menu.Item key="4" icon={<ProfileOutlined />}>
               Profile
             </Menu.Item>
-            <Menu.Item key="5" icon={<UserOutlined />}>
+            <Menu.Item key="5" icon={<SettingOutlined />}>
               Settings
             </Menu.Item>
             <Menu.Item key="6" icon={<PoweroffOutlined />}>

@@ -2,6 +2,7 @@ import React from "react";
 import "./work-space.css";
 
 import InfoForm from "../info-form/info-form";
+import DetailsForm from "../details-form/details-form";
 
 const WorkSpace = ({ step, next, prev }) => {
   const [userInfo, setUserInfo] = React.useState({
@@ -32,10 +33,12 @@ const WorkSpace = ({ step, next, prev }) => {
       );
     case 1:
       return (
-        <div style={{ minHeight: "60vh" }}>
-          <h1 next={next} prev={prev}>
-            More about you
-          </h1>
+        <div
+          style={{
+            minHeight: "60vh",
+          }}
+        >
+          <DetailsForm />
         </div>
       );
     case 2:
