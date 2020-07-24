@@ -1,150 +1,90 @@
 import React from "react";
-import { Form, Input, Tooltip, AutoComplete, Row, Col, DatePicker } from "antd";
-import { QuestionCircleOutlined } from "@ant-design/icons";
+import "./info-form.css";
 
-const { RangePicker } = DatePicker;
+import { Form, Input } from "antd";
 
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 7 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 30 },
-  },
-};
-
-const rangeConfig = {
-  rules: [{ type: "array", required: true, message: "Please select time!" }],
-};
+const { TextArea } = Input;
 
 const InfoForm = () => {
-  const [form] = Form.useForm();
-
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  const formItemLayout = {
+    labelCol: {
+      xs: { span: 24 },
+      sm: { span: 10 },
+    },
+    wrapperCol: {
+      xs: { span: 24 },
+      sm: { span: 20 },
+    },
   };
-
-  const [autoCompleteResult, setAutoCompleteResult] = React.useState([]);
-
-  const onWebsiteChange = (value) => {
-    if (!value) {
-      setAutoCompleteResult([]);
-    } else {
-      setAutoCompleteResult(
-        [".com", ".org", ".net"].map((domain) => `${value}${domain}`)
-      );
-    }
+  const [personalDetails, setPersonalDetails] = React.useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+  });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setPersonalDetails({ ...personalDetails, [name]: value });
+    console.log(personalDetails);
   };
-
-  const websiteOptions = autoCompleteResult.map((website) => ({
-    label: website,
-    value: website,
-  }));
   return (
-    <Form
-      style={{ margin: "auto" }}
-      {...formItemLayout}
-      form={form}
-      name="register"
-      onFinish={onFinish}
-      scrollToFirstError
-    >
-      <Form.Item
-        name="firstName"
-        label="First name"
-        rules={[
-          {
-            required: true,
-            message: "Please input your first name!",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="lastName"
-        label="Last name"
-        rules={[
-          {
-            required: true,
-            message: "Please input your last name!",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="email"
-        label="E-mail"
-        rules={[
-          {
-            type: "email",
-            message: "The input is not valid E-mail!",
-          },
-          {
-            required: true,
-            message: "Please input your E-mail!",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="social link"
-        label="Social link"
-        rules={[
-          {
-            required: true,
-            message: "Please input your social link!",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="website"
-        label="Website"
-        rules={[{ required: true, message: "Please input website!" }]}
-      >
-        <AutoComplete options={websiteOptions} onChange={onWebsiteChange}>
-          <Input />
-        </AutoComplete>
-      </Form.Item>
-      <Form.Item
-        name="education"
-        label="Education"
-        rules={[
-          {
-            required: true,
-            message: "Please input your education!",
-          },
-        ]}
-      >
-        <Row gutter={8}>
-          <Col span={12}>
-            <Form.Item
-              name="captcha"
-              noStyle
-              rules={[
-                {
-                  required: true,
-                  message: "Please input the captcha you got!",
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item name="range-picker" {...rangeConfig}>
-              <RangePicker />
-            </Form.Item>
-          </Col>
-        </Row>
-      </Form.Item>
-    </Form>
+    <div style={{ marginTop: "1rem", marginLeft: "4rem" }}>
+      <h3>Personal Details</h3>
+      <div style={{ display: "flex" }}>
+        <Form layout="vertical" {...formItemLayout}>
+          <Form.Item label="First name:">
+            <Input
+              name="firstName"
+              value={personalDetails.firstName}
+              onChange={handleChange}
+            />
+          </Form.Item>
+          <Form.Item label="Email:">
+            <Input
+              name="email"
+              value={personalDetails.email}
+              onChange={handleChange}
+            />
+          </Form.Item>
+          <Form.Item label="Job title:">
+            <Input
+              name="jobTitle"
+              value={personalDetails.email}
+              onChange={handleChange}
+            />
+          </Form.Item>
+        </Form>
+        <Form layout="vertical" {...formItemLayout}>
+          <Form.Item label="Last name:">
+            <Input
+              name="lastName"
+              value={personalDetails.lastName}
+              onChange={handleChange}
+            />
+          </Form.Item>
+          <Form.Item label="Phone:">
+            <Input
+              name="phone"
+              value={personalDetails.phone}
+              onChange={handleChange}
+            />
+          </Form.Item>
+          <Form.Item label="Personal site:">
+            <Input
+              name="personalSite"
+              value={personalDetails.phone}
+              onChange={handleChange}
+            />
+          </Form.Item>
+        </Form>
+      </div>
+      <h3>Professional Summary</h3>
+      <TextArea
+        rows={4}
+        style={{ width: "92%" }}
+        placeholder="e.g. PhD in Computer Science with 8 years of experience..."
+      />
+    </div>
   );
 };
 

@@ -23,14 +23,16 @@ const WorkSpace = ({ step, next, prev }) => {
     case 0:
       return (
         <div
-          style={{ height: "60vh", display: "flex", justifyContent: "center" }}
+          style={{
+            minHeight: "60vh",
+          }}
         >
           <InfoForm />
         </div>
       );
     case 1:
       return (
-        <div style={{ height: "60vh" }}>
+        <div style={{ minHeight: "60vh" }}>
           <h1 next={next} prev={prev}>
             More about you
           </h1>
@@ -38,7 +40,7 @@ const WorkSpace = ({ step, next, prev }) => {
       );
     case 2:
       return (
-        <div style={{ height: "60vh" }}>
+        <div style={{ minHeight: "60vh" }}>
           <h1 next={next} prev={prev}>
             Choose a template
           </h1>
@@ -46,7 +48,7 @@ const WorkSpace = ({ step, next, prev }) => {
       );
     case 3:
       return (
-        <div style={{ height: "60vh" }}>
+        <div style={{ minHeight: "60vh" }}>
           <h1 prev={prev}>Preview&Finish</h1>{" "}
         </div>
       );
