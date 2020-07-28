@@ -4,6 +4,7 @@ import "./project.css";
 import DashBoard from "../dashboard/dashboard";
 import WorkSpace from "../work-space/work-space";
 import { Button, Card, Steps, message } from "antd";
+import FirstTemplate from "../templates/template1";
 
 const { Step } = Steps;
 
@@ -61,7 +62,7 @@ const Project = () => {
           </div>
         </Card>
         <Card className="preview-container">
-          <h4>Hello</h4>
+          <FirstTemplate />
         </Card>
       </div>
     </DashBoard>

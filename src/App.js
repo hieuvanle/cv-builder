@@ -1,13 +1,14 @@
 import React from "react";
 import "./App.css";
+
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
 } from "react-router-dom";
-
 import { Login, Register, Home, Project } from "./components";
+
 function App() {
   const [isAuth, setIsAuth] = React.useState(true);
   return (

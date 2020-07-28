@@ -116,9 +116,7 @@ const DetailsForm = () => {
   };
   const deleteExperience = (experienceId) => {
     const filterSelectedEducation = () => {
-      setExperience(
-        educations.filter((education) => education.id !== experienceId)
-      );
+      setExperience(experience.filter((exp) => exp.id !== experienceId));
     };
     return <CloseCircleOutlined onClick={filterSelectedEducation} />;
   };

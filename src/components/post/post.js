@@ -115,8 +115,8 @@ const Post = ({
           />
         </div>
         <div className="footer-comments">
-          {comments.map((comment) => (
-            <div className="post-header">
+          {comments.map((comment, index) => (
+            <div className="post-header" key={index}>
               <Avatar
                 src={comment.avatar}
                 size={40}

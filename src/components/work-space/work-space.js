@@ -20,6 +20,7 @@ const WorkSpace = ({ step, next, prev }) => {
     const { name, value } = event.target;
     setUserInfo({ [name]: value });
   };
+
   switch (step) {
     case 0:
       return (

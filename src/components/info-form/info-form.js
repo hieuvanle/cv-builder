@@ -1,6 +1,7 @@
 import React from "react";
 import "./info-form.css";
 
+import { useSelector, useDispatch } from "react-redux";
 import { Form, Input } from "antd";
 
 const { TextArea } = Input;
@@ -16,17 +17,23 @@ const InfoForm = () => {
       sm: { span: 20 },
     },
   };
+  const infoForm = useSelector((state) => state.infoForm);
+  const dispatch = useDispatch();
   const [personalDetails, setPersonalDetails] = React.useState({
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
+    github: "",
+    personalSite: "",
+    summary: "",
   });
   const handleChange = (event) => {
     const { name, value } = event.target;
     setPersonalDetails({ ...personalDetails, [name]: value });
-    console.log(personalDetails);
+    dispatch({ type: "infoForm/inputInfo", payload: personalDetails });
   };
+
   return (
     <div style={{ marginTop: "1rem", marginLeft: "4rem" }}>
       <h3>Personal Details</h3>
@@ -46,10 +53,10 @@ const InfoForm = () => {
               onChange={handleChange}
             />
           </Form.Item>
-          <Form.Item label="Job title:">
+          <Form.Item label="Github:">
             <Input
-              name="jobTitle"
-              value={personalDetails.email}
+              name="github"
+              value={personalDetails.github}
               onChange={handleChange}
             />
           </Form.Item>
@@ -72,7 +79,7 @@ const InfoForm = () => {
           <Form.Item label="Personal site:">
             <Input
               name="personalSite"
-              value={personalDetails.phone}
+              value={personalDetails.personalSite}
               onChange={handleChange}
             />
           </Form.Item>
@@ -83,6 +90,9 @@ const InfoForm = () => {
         rows={4}
         style={{ width: "92%" }}
         placeholder="e.g. PhD in Computer Science with 8 years of experience..."
+        name="summary"
+        value={personalDetails.summary}
+        onChange={handleChange}
       />
     </div>
   );
