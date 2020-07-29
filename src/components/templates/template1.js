@@ -3,8 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const FirstTemplate = () => {
-  const infoForm = useSelector((state) => state.infoForm);
-  console.log(infoForm);
+
   return (
     <div>
       <h3>Personal details go here</h3>

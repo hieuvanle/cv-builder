@@ -128,7 +128,7 @@ const Home = () => {
     },
   ]);
   return (
-    <DashBoard title="Home" home>
+    <DashBoard title="Home">
       <div className="home-container">
         <Row>
           <Col span={15}>

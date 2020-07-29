@@ -36,6 +36,4 @@ const infoFormSlice = createSlice({
   },
 });
 
-export const { inputInfo } = infoFormSlice.actions;
-
 export default infoFormSlice.reducer;
