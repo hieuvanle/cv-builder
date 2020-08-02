@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "./details-form.css";
 import { v4 as uuidv4 } from "uuid";
 
+import moment from "moment";
 import { Collapse, Form, Input, DatePicker, Button, Select } from "antd";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,8 +20,8 @@ const month = new Intl.DateTimeFormat("en", { month: "short" }).format(
   new Date()
 );
 const now = `${month} ${year}`;
-const rangeConfig = {
-  rules: [{ type: "array", required: true, message: "Please select time!" }],
+const dateConfig = {
+  rules: [{ required: true, message: "Please select time!" }],
 };
 
 const DetailsForm = () => {
@@ -37,7 +38,17 @@ const DetailsForm = () => {
   const detailsForm = useSelector((state) => state.detailsForm);
   const dispatch = useDispatch();
   const [educations, setEducations] = React.useState(detailsForm.educations);
-
+  const changeEducation = (event, id) => {
+    const { name, value } = event.target;
+    const chosenIndex = educations.indexOf((edu) => edu.id === id);
+    const newEducations = [...educations];
+    newEducations[chosenIndex] = {
+      ...newEducations[chosenIndex],
+      [name]: value,
+    };
+    setEducations(newEducations);
+    console.log("fired");
+  };
   const addEducation = () => {
     const newEdu = {
       id: uuidv4(),
@@ -122,7 +133,7 @@ const DetailsForm = () => {
       <h3>Education</h3>
       {educations.length !== 0 ? (
         <Collapse>
-          {educations.map((education, index) => (
+          {educations.map((education) => (
             <Panel
               key={education.id}
               header={`${education.school} | ${education.startDate} - ${education.endDate}`}
@@ -131,18 +142,43 @@ const DetailsForm = () => {
               <div style={{ display: "flex" }}>
                 <Form layout="vertical" {...formItemLayout}>
                   <Form.Item label="School:">
-                    <Input name="school" />
+                    <Input
+                      name="school"
+                      value={education.school}
+                      onChange={(event) => changeEducation(event, education.id)}
+                    />
                   </Form.Item>
-                  <Form.Item label="Start & End date:" {...rangeConfig}>
-                    <RangePicker picker="month" />
+                  <Form.Item label="Date:" {...dateConfig}>
+                    <DatePicker
+                      placeholder="Start Date"
+                      picker="month"
+                      name="startDate"
+                      value={moment(education.startDate)}
+                      onChange={(event) => changeEducation(event, education.id)}
+                    />
+                    <DatePicker
+                      placeholder="End Date"
+                      picker="month"
+                      name="endDate"
+                      value={moment(education.endDate)}
+                      onChange={(event) => changeEducation(event, education.id)}
+                    />
                   </Form.Item>
                 </Form>
                 <Form layout="vertical" {...formItemLayout}>
                   <Form.Item label="Degree:">
-                    <Input name="degree" />
+                    <Input
+                      name="degree"
+                      value={education.degree}
+                      onChange={(event) => changeEducation(event, education.id)}
+                    />
                   </Form.Item>
                   <Form.Item label="City:">
-                    <Input name="city" />
+                    <Input
+                      name="city"
+                      value={education.city}
+                      onChange={(event) => changeEducation(event, education.id)}
+                    />
                   </Form.Item>
                 </Form>
               </div>
@@ -159,6 +195,9 @@ const DetailsForm = () => {
                 rows={4}
                 style={{ width: "92%" }}
                 placeholder="e.g. PhD in Computer Science with 8 years of experience..."
+                name="description"
+                value={education.description}
+                onChange={(event) => changeEducation(event, education.id)}
               />
             </Panel>
           ))}
@@ -229,7 +268,7 @@ const DetailsForm = () => {
                   <Form.Item label="Job title:">
                     <Input name="jobTitle" />
                   </Form.Item>
-                  <Form.Item label="Start & End date:" {...rangeConfig}>
+                  <Form.Item label="Start & End date:" {...dateConfig}>
                     <RangePicker picker="month" />
                   </Form.Item>
                 </Form>
