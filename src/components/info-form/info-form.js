@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./info-form.css";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -6,7 +6,7 @@ import { Form, Input } from "antd";
 
 const { TextArea } = Input;
 
-const InfoForm = ({someProps}) => {
+const InfoForm = ({ someProps }) => {
   const formItemLayout = {
     labelCol: {
       xs: { span: 24 },
@@ -20,7 +20,7 @@ const InfoForm = ({someProps}) => {
 
   const infoForm = useSelector((state) => state.infoForm);
   const dispatch = useDispatch();
-  
+
   const [personalDetails, setPersonalDetails] = React.useState(infoForm);
 
   const handleChange = (event) => {

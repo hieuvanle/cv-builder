@@ -18,7 +18,6 @@ import {
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-  UserOutlined,
   ProjectFilled,
   HomeOutlined,
   PoweroffOutlined,

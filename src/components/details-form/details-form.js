@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./details-form.css";
 import { v4 as uuidv4 } from "uuid";
 
 import { Collapse, Form, Input, DatePicker, Button, Select } from "antd";
 import { CloseCircleOutlined } from "@ant-design/icons";
+import { useDispatch, useSelector } from "react-redux";
 
 const { TextArea } = Input;
 const { Option } = Select;
-const { MonthPicker, RangePicker } = DatePicker;
+const { RangePicker } = DatePicker;
 
 const { Panel } = Collapse;
 
@@ -33,8 +34,12 @@ const DetailsForm = () => {
       sm: { span: 20 },
     },
   };
-  const [educations, setEducations] = React.useState([
-    {
+  const detailsForm = useSelector((state) => state.detailsForm);
+  const dispatch = useDispatch();
+  const [educations, setEducations] = React.useState(detailsForm.educations);
+
+  const addEducation = () => {
+    const newEdu = {
       id: uuidv4(),
       school: "(Not specified)",
       degree: "",
@@ -42,29 +47,21 @@ const DetailsForm = () => {
       endDate: now,
       city: "",
       description: "",
-    },
-  ]);
-  const addEducation = () => {
-    setEducations([
-      ...educations,
-      {
-        id: uuidv4(),
-        school: "(Not specified)",
-        degree: "",
-        startDate: now,
-        endDate: now,
-        city: "",
-        description: "",
-      },
-    ]);
+    };
+    setEducations([...educations, newEdu]);
+    dispatch({ type: "detailsForm/addEducation", payload: newEdu });
   };
   const deleteEducation = (educationId) => {
-    const filterSelectedEducation = () => {
+    const deleteHelper = () => {
+      dispatch({
+        type: "detailsForm/deleteEducation",
+        payload: educationId,
+      });
       setEducations(
         educations.filter((education) => education.id !== educationId)
       );
     };
-    return <CloseCircleOutlined onClick={filterSelectedEducation} />;
+    return <CloseCircleOutlined onClick={deleteHelper} />;
   };
   const [skills, setSkills] = React.useState([
     {
@@ -120,7 +117,6 @@ const DetailsForm = () => {
     };
     return <CloseCircleOutlined onClick={filterSelectedEducation} />;
   };
-
   return (
     <div style={{ marginTop: "1rem" }}>
       <h3>Education</h3>
@@ -138,7 +134,7 @@ const DetailsForm = () => {
                     <Input name="school" />
                   </Form.Item>
                   <Form.Item label="Start & End date:" {...rangeConfig}>
-                    <RangePicker />
+                    <RangePicker picker="month" />
                   </Form.Item>
                 </Form>
                 <Form layout="vertical" {...formItemLayout}>
@@ -157,7 +153,7 @@ const DetailsForm = () => {
                   color: "rgba(0,0,0,0.85)",
                 }}
               >
-                Description:{" "}
+                Description:
               </p>
               <TextArea
                 rows={4}
@@ -234,7 +230,7 @@ const DetailsForm = () => {
                     <Input name="jobTitle" />
                   </Form.Item>
                   <Form.Item label="Start & End date:" {...rangeConfig}>
-                    <RangePicker />
+                    <RangePicker picker="month" />
                   </Form.Item>
                 </Form>
                 <Form layout="vertical" {...formItemLayout}>

@@ -5,22 +5,6 @@ import InfoForm from "../info-form/info-form";
 import DetailsForm from "../details-form/details-form";
 
 const WorkSpace = ({ step, next, prev }) => {
-  const [userInfo, setUserInfo] = React.useState({
-    fullName: "",
-    jobTitle: "",
-    personalWeb: "",
-    email: "",
-    gitHub: "",
-    workExperience: "",
-    skills: "",
-    education: "",
-  });
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setUserInfo({ [name]: value });
-  };
-
   switch (step) {
     case 0:
       return (
