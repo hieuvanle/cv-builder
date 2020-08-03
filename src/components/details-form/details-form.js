@@ -16,10 +16,10 @@ const { Panel } = Collapse;
 const year = new Intl.DateTimeFormat("en", { year: "numeric" }).format(
   new Date()
 );
-const month = new Intl.DateTimeFormat("en", { month: "short" }).format(
+const month = new Intl.DateTimeFormat("en", { month: "2-digit" }).format(
   new Date()
 );
-const now = `${month} ${year}`;
+const now = `${year}-${month}`;
 const dateConfig = {
   rules: [{ required: true, message: "Please select time!" }],
 };
@@ -38,16 +38,15 @@ const DetailsForm = () => {
   const detailsForm = useSelector((state) => state.detailsForm);
   const dispatch = useDispatch();
   const [educations, setEducations] = React.useState(detailsForm.educations);
-  const changeEducation = (event, id) => {
+  const changeEducation = (event, id, index) => {
     const { name, value } = event.target;
-    const chosenIndex = educations.indexOf((edu) => edu.id === id);
+
     const newEducations = [...educations];
-    newEducations[chosenIndex] = {
-      ...newEducations[chosenIndex],
+    newEducations[index] = {
+      ...newEducations[index],
       [name]: value,
     };
     setEducations(newEducations);
-    console.log("fired");
   };
   const addEducation = () => {
     const newEdu = {
@@ -133,7 +132,7 @@ const DetailsForm = () => {
       <h3>Education</h3>
       {educations.length !== 0 ? (
         <Collapse>
-          {educations.map((education) => (
+          {educations.map((education, index) => (
             <Panel
               key={education.id}
               header={`${education.school} | ${education.startDate} - ${education.endDate}`}
@@ -145,7 +144,9 @@ const DetailsForm = () => {
                     <Input
                       name="school"
                       value={education.school}
-                      onChange={(event) => changeEducation(event, education.id)}
+                      onChange={(event) => {
+                        return changeEducation(event, education.id, index);
+                      }}
                     />
                   </Form.Item>
                   <Form.Item label="Date:" {...dateConfig}>
@@ -170,7 +171,9 @@ const DetailsForm = () => {
                     <Input
                       name="degree"
                       value={education.degree}
-                      onChange={(event) => changeEducation(event, education.id)}
+                      onChange={(event) =>
+                        changeEducation(event, education.id, index)
+                      }
                     />
                   </Form.Item>
                   <Form.Item label="City:">

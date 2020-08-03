@@ -4,10 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 const year = new Intl.DateTimeFormat("en", { year: "numeric" }).format(
   new Date()
 );
-const month = new Intl.DateTimeFormat("en", { month: "numeric" }).format(
+const month = new Intl.DateTimeFormat("en", { month: "2-digit" }).format(
   new Date()
 );
-const now = `${year}-${month.length < 2 ? "0" + month : null}`;
+const now = `${year}-${month}`;
 
 const detailsFormSlice = createSlice({
   name: "detailsForm",
