@@ -23,30 +23,46 @@ const now = `${year}-${month}`;
 const dateConfig = {
   rules: [{ required: true, message: "Please select time!" }],
 };
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 10 },
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 20 },
+  },
+};
 
 const DetailsForm = () => {
-  const formItemLayout = {
-    labelCol: {
-      xs: { span: 24 },
-      sm: { span: 10 },
-    },
-    wrapperCol: {
-      xs: { span: 24 },
-      sm: { span: 20 },
-    },
-  };
   const detailsForm = useSelector((state) => state.detailsForm);
   const dispatch = useDispatch();
+  //Education
   const [educations, setEducations] = React.useState(detailsForm.educations);
-  const changeEducation = (event, id, index) => {
+  const changeDateEducation = (date, index, property) => {
+    const temp = [...educations];
+    temp[index] = {
+      ...temp[index],
+      [property]: date,
+    };
+    setEducations(temp);
+    dispatch({
+      type: "detailsForm/inputEducation",
+      payload: { index: index, data: temp[index] },
+    });
+  };
+  const changeEducation = (event, index) => {
     const { name, value } = event.target;
-
-    const newEducations = [...educations];
-    newEducations[index] = {
-      ...newEducations[index],
+    const temp = [...educations];
+    temp[index] = {
+      ...temp[index],
       [name]: value,
     };
-    setEducations(newEducations);
+    setEducations(temp);
+    dispatch({
+      type: "detailsForm/inputEducation",
+      payload: { index: index, data: temp[index] },
+    });
   };
   const addEducation = () => {
     const newEdu = {
@@ -73,59 +89,101 @@ const DetailsForm = () => {
     };
     return <CloseCircleOutlined onClick={deleteHelper} />;
   };
-  const [skills, setSkills] = React.useState([
-    {
+  //Skill
+  const [skills, setSkills] = React.useState(detailsForm.skills);
+  const changeSkill = (event, index) => {
+    const { name, value } = event.target;
+    const temp = [...skills];
+    temp[index] = {
+      ...temp[index],
+      [name]: value,
+    };
+    setSkills(temp);
+    dispatch({
+      type: "detailsForm/inputSkill",
+      payload: { index: index, data: temp[index] },
+    });
+  };
+  const handleSelectSkill = (value, index) => {
+    const temp = [...skills];
+    temp[index] = {
+      ...temp[index],
+      level: value,
+    };
+    dispatch({
+      type: "detailsForm/inputSkill",
+      payload: { index: index, data: temp[index] },
+    });
+    setSkills(temp);
+  };
+  const addSkill = () => {
+    const newSkill = {
       id: uuidv4(),
       skill: "(Not specified)",
-      level: "Novice",
-    },
-  ]);
-  const addSkill = () => {
-    setSkills([
-      ...skills,
-      {
-        id: uuidv4(),
-        skill: "(Not specified)",
-        level: "Novice",
-      },
-    ]);
+      level: "Familiar",
+    };
+    setSkills([...skills, newSkill]);
+    dispatch({ type: "detailsForm/addSkill", payload: newSkill });
   };
   const deleteSkill = (skillId) => {
-    const removeSkill = () => {
+    const deleteHelper = () => {
+      dispatch({
+        type: "detailsForm/deleteSkill",
+        payload: skillId,
+      });
       setSkills(skills.filter((skill) => skill.id !== skillId));
     };
-    return <CloseCircleOutlined onClick={removeSkill} />;
+    return <CloseCircleOutlined onClick={deleteHelper} />;
   };
-  const [experience, setExperience] = React.useState([
-    {
+  //Experience
+  const [experience, setExperience] = React.useState(detailsForm.experience);
+  const changeDateExperience = (date, index, property) => {
+    const temp = [...experience];
+    temp[index] = {
+      ...temp[index],
+      [property]: date,
+    };
+    setExperience(temp);
+    dispatch({
+      type: "detailsForm/inputExperience",
+      payload: { index: index, data: temp[index] },
+    });
+  };
+  const changeExperience = (event, index) => {
+    const { name, value } = event.target;
+    const temp = [...experience];
+    temp[index] = {
+      ...temp[index],
+      [name]: value,
+    };
+    setExperience(temp);
+    dispatch({
+      type: "detailsForm/inputExperience",
+      payload: { index: index, data: temp[index] },
+    });
+  };
+  const addExperience = () => {
+    const newExp = {
       id: uuidv4(),
       jobTitle: "(Not specified)",
-      Employer: "",
+      employer: "",
       startDate: now,
       endDate: now,
       city: "",
       description: "",
-    },
-  ]);
-  const addExperience = () => {
-    setExperience([
-      ...experience,
-      {
-        id: uuidv4(),
-        jobTitle: "(Not specified)",
-        employer: "",
-        startDate: now,
-        endDate: now,
-        city: "",
-        description: "",
-      },
-    ]);
+    };
+    setExperience([...experience, newExp]);
+    dispatch({ type: "detailsForm/addExperience", payload: newExp });
   };
   const deleteExperience = (experienceId) => {
-    const filterSelectedEducation = () => {
+    const deleteHelper = () => {
+      dispatch({
+        type: "detailsForm/deleteExperience",
+        payload: experienceId,
+      });
       setExperience(experience.filter((exp) => exp.id !== experienceId));
     };
-    return <CloseCircleOutlined onClick={filterSelectedEducation} />;
+    return <CloseCircleOutlined onClick={deleteHelper} />;
   };
   return (
     <div style={{ marginTop: "1rem" }}>
@@ -134,7 +192,7 @@ const DetailsForm = () => {
         <Collapse>
           {educations.map((education, index) => (
             <Panel
-              key={education.id}
+              key={index}
               header={`${education.school} | ${education.startDate} - ${education.endDate}`}
               extra={deleteEducation(education.id)}
             >
@@ -144,9 +202,7 @@ const DetailsForm = () => {
                     <Input
                       name="school"
                       value={education.school}
-                      onChange={(event) => {
-                        return changeEducation(event, education.id, index);
-                      }}
+                      onChange={(event) => changeEducation(event, index)}
                     />
                   </Form.Item>
                   <Form.Item label="Date:" {...dateConfig}>
@@ -155,14 +211,18 @@ const DetailsForm = () => {
                       picker="month"
                       name="startDate"
                       value={moment(education.startDate)}
-                      onChange={(event) => changeEducation(event, education.id)}
+                      onChange={(dateMoment, dateString) =>
+                        changeDateEducation(dateString, index, "startDate")
+                      }
                     />
                     <DatePicker
                       placeholder="End Date"
                       picker="month"
                       name="endDate"
                       value={moment(education.endDate)}
-                      onChange={(event) => changeEducation(event, education.id)}
+                      onChange={(dateMoment, dateString) => {
+                        changeDateEducation(dateString, index, "endDate");
+                      }}
                     />
                   </Form.Item>
                 </Form>
@@ -171,16 +231,14 @@ const DetailsForm = () => {
                     <Input
                       name="degree"
                       value={education.degree}
-                      onChange={(event) =>
-                        changeEducation(event, education.id, index)
-                      }
+                      onChange={(event) => changeEducation(event, index)}
                     />
                   </Form.Item>
                   <Form.Item label="City:">
                     <Input
                       name="city"
                       value={education.city}
-                      onChange={(event) => changeEducation(event, education.id)}
+                      onChange={(event) => changeEducation(event, index)}
                     />
                   </Form.Item>
                 </Form>
@@ -200,7 +258,7 @@ const DetailsForm = () => {
                 placeholder="e.g. PhD in Computer Science with 8 years of experience..."
                 name="description"
                 value={education.description}
-                onChange={(event) => changeEducation(event, education.id)}
+                onChange={(event) => changeEducation(event, index)}
               />
             </Panel>
           ))}
@@ -217,7 +275,7 @@ const DetailsForm = () => {
       <h3 style={{ marginTop: "1rem" }}>Technical Skills</h3>
       {skills.length !== 0 ? (
         <Collapse>
-          {skills.map((skill) => (
+          {skills.map((skill, index) => (
             <Panel
               key={skill.id}
               header={`${skill.skill} - ${skill.level}`}
@@ -226,17 +284,23 @@ const DetailsForm = () => {
               <div style={{ display: "flex" }}>
                 <Form layout="vertical" {...formItemLayout}>
                   <Form.Item label="Skill:">
-                    <Input name="skill" />
+                    <Input
+                      name="skill"
+                      value={skill.skill}
+                      onChange={(event) => changeSkill(event, index)}
+                    />
                   </Form.Item>
                 </Form>
                 <Form layout="vertical" {...formItemLayout}>
                   <Form.Item label="Level:">
-                    <Select>
-                      <Option value="1">Novice</Option>
-                      <Option value="2">Beginner</Option>
-                      <Option value="3">Skillful</Option>
-                      <Option value="4">Experienced</Option>
-                      <Option value="5">Expert</Option>
+                    <Select
+                      name="level"
+                      value={skill.level}
+                      onChange={(value) => handleSelectSkill(value, index)}
+                    >
+                      <Option value="Familiar">Familiar</Option>
+                      <Option value="Experienced">Experienced</Option>
+                      <Option value="Expert">Expert</Option>
                     </Select>
                   </Form.Item>
                 </Form>
@@ -269,18 +333,47 @@ const DetailsForm = () => {
               <div style={{ display: "flex" }}>
                 <Form layout="vertical" {...formItemLayout}>
                   <Form.Item label="Job title:">
-                    <Input name="jobTitle" />
+                    <Input
+                      name="jobTitle"
+                      value={exp.jobTitle}
+                      onChange={(event) => changeExperience(event, index)}
+                    />
                   </Form.Item>
-                  <Form.Item label="Start & End date:" {...dateConfig}>
-                    <RangePicker picker="month" />
+                  <Form.Item label="Date:" {...dateConfig}>
+                    <DatePicker
+                      placeholder="Start Date"
+                      picker="month"
+                      name="startDate"
+                      value={moment(exp.startDate)}
+                      onChange={(dateMoment, dateString) =>
+                        changeDateExperience(dateString, index, "startDate")
+                      }
+                    />
+                    <DatePicker
+                      placeholder="End Date"
+                      picker="month"
+                      name="endDate"
+                      value={moment(exp.endDate)}
+                      onChange={(dateMoment, dateString) => {
+                        changeDateExperience(dateString, index, "endDate");
+                      }}
+                    />
                   </Form.Item>
                 </Form>
                 <Form layout="vertical" {...formItemLayout}>
                   <Form.Item label="Employer:">
-                    <Input name="employer" />
+                    <Input
+                      name="employer"
+                      value={exp.employer}
+                      onChange={(event) => changeExperience(event, index)}
+                    />
                   </Form.Item>
                   <Form.Item label="City:">
-                    <Input name="city" />
+                    <Input
+                      name="city"
+                      value={exp.city}
+                      onChange={(event) => changeExperience(event, index)}
+                    />
                   </Form.Item>
                 </Form>
               </div>
@@ -291,12 +384,15 @@ const DetailsForm = () => {
                   color: "rgba(0,0,0,0.85)",
                 }}
               >
-                Description:{" "}
+                Description:
               </p>
               <TextArea
                 rows={4}
                 style={{ width: "92%" }}
                 placeholder="e.g. Using influxDB for real-time data to reduce efficient cost..."
+                name="description"
+                value={exp.description}
+                onChange={(event) => changeExperience(event, index)}
               />
             </Panel>
           ))}

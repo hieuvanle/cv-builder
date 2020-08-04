@@ -27,14 +27,14 @@ const detailsFormSlice = createSlice({
       {
         id: uuidv4(),
         skill: "(Not specified)",
-        level: "Novice",
+        level: "Familiar",
       },
     ],
     experience: [
       {
         id: uuidv4(),
         jobTitle: "(Not specified)",
-        Employer: "",
+        employer: "",
         startDate: now,
         endDate: now,
         city: "",
@@ -44,7 +44,22 @@ const detailsFormSlice = createSlice({
   },
   reducers: {
     inputEducation(state, action) {
-      return state;
+      const { index, data } = action.payload;
+      const { school, degree, startDate, endDate, city, description } = data;
+      const temp = [...state.educations];
+      temp[index] = {
+        ...temp[index],
+        school,
+        degree,
+        startDate,
+        endDate,
+        city,
+        description,
+      };
+      return {
+        ...state,
+        educations: temp,
+      };
     },
     addEducation(state, action) {
       return {
@@ -58,10 +73,69 @@ const detailsFormSlice = createSlice({
         educations: state.educations.filter((edu) => edu.id !== action.payload),
       };
     },
-    addSkill(state, action) {},
-    deleteSkill(state, action) {},
-    addExperience(state, action) {},
-    deleteExperience(state, action) {},
+    inputSkill(state, action) {
+      const { index, data } = action.payload;
+      const { skill, level } = data;
+      const temp = [...state.skills];
+      temp[index] = {
+        ...temp[index],
+        skill,
+        level,
+      };
+      return {
+        ...state,
+        skills: temp,
+      };
+    },
+    addSkill(state, action) {
+      return {
+        ...state,
+        skills: [...state.skills, action.payload],
+      };
+    },
+    deleteSkill(state, action) {
+      return {
+        ...state,
+        skills: state.skills.filter((skill) => skill.id !== action.payload),
+      };
+    },
+    inputExperience(state, action) {
+      const { index, data } = action.payload;
+      const {
+        jobTitle,
+        employer,
+        startDate,
+        endDate,
+        city,
+        description,
+      } = data;
+      const temp = [...state.educations];
+      temp[index] = {
+        ...temp[index],
+        jobTitle,
+        employer,
+        startDate,
+        endDate,
+        city,
+        description,
+      };
+      return {
+        ...state,
+        experience: temp,
+      };
+    },
+    addExperience(state, action) {
+      return {
+        ...state,
+        experience: [...state.experience, action.payload],
+      };
+    },
+    deleteExperience(state, action) {
+      return {
+        ...state,
+        experience: state.experience.filter((exp) => exp.id !== action.payload),
+      };
+    },
   },
 });
 
