@@ -333,13 +333,14 @@ const DetailsForm = () => {
             >
               <div style={{ display: "flex" }}>
                 <Form layout="vertical" {...formItemLayout}>
-                  <Form.Item label="Job title:">
+                  <Form.Item label="Employer:">
                     <Input
-                      name="jobTitle"
-                      value={exp.jobTitle}
+                      name="employer"
+                      value={exp.employer}
                       onChange={(event) => changeExperience(event, index)}
                     />
                   </Form.Item>
+
                   <Form.Item label="Date:" {...dateConfig}>
                     <DatePicker
                       placeholder="Start Date"
@@ -362,10 +363,10 @@ const DetailsForm = () => {
                   </Form.Item>
                 </Form>
                 <Form layout="vertical" {...formItemLayout}>
-                  <Form.Item label="Employer:">
+                  <Form.Item label="Job title:">
                     <Input
-                      name="employer"
-                      value={exp.employer}
+                      name="jobTitle"
+                      value={exp.jobTitle}
                       onChange={(event) => changeExperience(event, index)}
                     />
                   </Form.Item>

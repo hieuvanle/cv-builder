@@ -25,8 +25,8 @@ const InfoForm = ({ someProps }) => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setPersonalDetails({ ...personalDetails, [name]: value });
     dispatch({ type: "infoForm/inputInfo", payload: personalDetails });
+    setPersonalDetails({ ...personalDetails, [name]: value });
   };
 
   return (
@@ -71,7 +71,7 @@ const InfoForm = ({ someProps }) => {
               onChange={handleChange}
             />
           </Form.Item>
-          <Form.Item label="Personal site:">
+          <Form.Item label="Linkedin:">
             <Input
               name="personalSite"
               value={personalDetails.personalSite}
