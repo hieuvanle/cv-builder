@@ -28,8 +28,8 @@ const FirstTemplate = () => {
   const initialEdu = [
     {
       id: educations[0].id,
-      jobTitle: "(Not specified)",
-      employer: "",
+      school: "(Not specified)",
+      degree: "",
       startDate: now,
       endDate: now,
       city: "",
@@ -54,6 +54,20 @@ const FirstTemplate = () => {
       description: "",
     },
   ];
+  const levelConverter = (level) => {
+    switch (level) {
+      case "Familiar":
+        return "20%";
+      case "Experienced":
+        return "45%";
+      case "Advanced":
+        return "70%";
+      case "Expert":
+        return "90%";
+      default:
+        return level;
+    }
+  };
 
   return (
     <div className="resume_right">
@@ -158,50 +172,72 @@ const FirstTemplate = () => {
           </ul>
         </div>
       ) : null}
-      <div className="resume_item">
-        <div className="title">
-          <p className="bold">Education</p>
-        </div>
-        <ul>
-          <li>
-            <div>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <p style={{ marginBottom: 0, fontWeight: "bold" }}>
-                  University of St.Thomas | B.S in Computer Science
-                </p>
-                <p style={{ marginBottom: 0 }}>2013-2020</p>
-              </div>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Nostrum, voluptatibus!
-              </p>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div className="resume_item">
-        <div className="title">
-          <p className="bold">Skills</p>
-        </div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <p style={{ width: "40%", marginBottom: 0, marginLeft: "18px" }}>
-            Python
-          </p>
-          <div
-            style={{
-              border: "1px solid #69c0ff",
-              width: "10rem",
-              height: "16px",
-              margin: "auto 0",
-            }}
-          >
-            <div
-              style={{ background: "#1890ff", height: "14px", width: "75%" }}
-            ></div>
+      {!Hoek.deepEqual(educations, initialEdu) ? (
+        <div className="resume_item">
+          <div className="title">
+            <p className="bold">Education</p>
           </div>
+          <ul>
+            {educations.map((edu) => (
+              <li key={edu.id}>
+                <div>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <div style={{ display: "flex" }}>
+                      {edu.school !== "(Not specified)" ? (
+                        <p style={{ marginBottom: 0, fontWeight: "bold" }}>
+                          {edu.school}
+                        </p>
+                      ) : null}
+                      <p style={{ marginBottom: 0, fontWeight: "bold" }}>
+                        {edu.degree}
+                      </p>
+                    </div>
+                    {edu.startDate && edu.endDate !== now ? (
+                      <p style={{ marginBottom: 0 }}>
+                        {`${edu.startDate}`}
+                        {` - ${edu.endDate}`}
+                      </p>
+                    ) : null}
+                  </div>
+                  <p>{edu.description}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
-      {infoForm.summary}
+      ) : null}
+      {!Hoek.deepEqual(skills, initialSkill) ? (
+        <div className="resume_item">
+          <div className="title">
+            <p className="bold">Skills</p>
+          </div>
+          {skills.map((skill) => (
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <p style={{ width: "40%", marginBottom: 0, marginLeft: "18px" }}>
+                {skill.skill}
+              </p>
+              <div
+                style={{
+                  border: "1px solid #69c0ff",
+                  width: "10rem",
+                  height: "16px",
+                  margin: "auto 0",
+                }}
+              >
+                <div
+                  style={{
+                    background: "#1890ff",
+                    height: "14px",
+                    width: `${levelConverter(skill.level)}`,
+                  }}
+                ></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 };
