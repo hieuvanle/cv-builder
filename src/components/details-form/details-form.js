@@ -300,6 +300,7 @@ const DetailsForm = () => {
                     >
                       <Option value="Familiar">Familiar</Option>
                       <Option value="Experienced">Experienced</Option>
+                      <Option value="Advanced">Advanced</Option>
                       <Option value="Expert">Expert</Option>
                     </Select>
                   </Form.Item>

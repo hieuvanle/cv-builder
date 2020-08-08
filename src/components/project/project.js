@@ -27,10 +27,10 @@ const Project = () => {
         <Card className="info-container">
           <div className="workspace-container">
             <Steps current={step} onChange={onChange}>
-              <Step title="Step 1" description="Basic information." />
+              <Step title="Step 1" description="Basic information" />
               <Step title="Step 2" description="More about you" />
-              <Step title="Step 3" description="Choose a template." />
-              <Step title="Step 4" description="Review&Finish." />
+              <Step title="Step 3" description="Choose template" />
+              <Step title="Step 4" description="Review&Finish" />
             </Steps>
             <WorkSpace step={step} next={next} prev={prev} />
           </div>
@@ -61,7 +61,7 @@ const Project = () => {
             )}
           </div>
         </Card>
-        <Card className="preview-container">
+        <Card className="preview-container" style={{ height: "85vh" }}>
           <FirstTemplate />
         </Card>
       </div>

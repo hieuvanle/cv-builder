@@ -36,7 +36,8 @@ const DashBoard = (props) => {
   const location = useLocation();
   const { children, title } = props;
   //Component-Supporters
-  const [collapsed, setCollapsed] = React.useState(false);
+  const [disabled, setDisabled] = React.useState(false);
+  const [collapsed, setCollapsed] = React.useState(true);
   const [visible, setVisible] = React.useState(false);
 
   const toggle = () => {

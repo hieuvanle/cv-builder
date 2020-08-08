@@ -30,7 +30,7 @@ const WorkSpace = ({ step, next, prev }) => {
       return (
         <div style={{ minHeight: "60vh" }}>
           <h1 next={next} prev={prev}>
-            Choose a template
+            Choose template
           </h1>
         </div>
       );
