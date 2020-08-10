@@ -187,12 +187,14 @@ const FirstTemplate = () => {
                     <div style={{ display: "flex" }}>
                       {edu.school !== "(Not specified)" ? (
                         <p style={{ marginBottom: 0, fontWeight: "bold" }}>
-                          {edu.school}
+                          {`${edu.school} `}
                         </p>
                       ) : null}
-                      <p style={{ marginBottom: 0, fontWeight: "bold" }}>
-                        {edu.degree}
-                      </p>
+                      {edu.degree ? (
+                        <p style={{ marginBottom: 0, fontWeight: "bold" }}>
+                          {`| ${edu.degree}`}
+                        </p>
+                      ) : null}
                     </div>
                     {edu.startDate && edu.endDate !== now ? (
                       <p style={{ marginBottom: 0 }}>

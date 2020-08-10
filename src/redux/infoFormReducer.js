@@ -22,6 +22,7 @@ const infoFormSlice = createSlice({
         personalSite,
         summary,
       } = action.payload;
+      console.log(action.payload);
       return {
         ...state,
         firstName,

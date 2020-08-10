@@ -10,7 +10,7 @@ import {
 import { Login, Register, Home, Project } from "./components";
 
 function App() {
-  const [isAuth, setIsAuth] = React.useState(true);
+  const [isAuth, setIsAuth] = React.useState(false);
   return (
     <Router>
       <Switch>

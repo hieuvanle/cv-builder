@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./info-form.css";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -17,17 +17,17 @@ const InfoForm = ({ someProps }) => {
       sm: { span: 20 },
     },
   };
-
   const infoForm = useSelector((state) => state.infoForm);
   const dispatch = useDispatch();
 
-  const [personalDetails, setPersonalDetails] = React.useState(infoForm);
-
+  const [personalDetails, setPersonalDetails] = useState(infoForm);
   const handleChange = (event) => {
     const { name, value } = event.target;
-    dispatch({ type: "infoForm/inputInfo", payload: personalDetails });
     setPersonalDetails({ ...personalDetails, [name]: value });
   };
+  useEffect(() => {
+    dispatch({ type: "infoForm/inputInfo", payload: personalDetails });
+  }, [dispatch, personalDetails]);
 
   return (
     <div style={{ marginTop: "1rem", marginLeft: "4rem" }}>
