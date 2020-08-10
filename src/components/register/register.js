@@ -1,18 +1,47 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "./register.css";
 
 import Layout from "../layout/layout";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
+import axios from "axios";
 
 const Register = () => {
   const focusRef = useRef(null);
   useEffect(() => {
     focusRef.current.focus();
   });
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const [success, setSuccess] = useState(null);
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  };
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:5000/auth/register", user);
+      setSuccess(true);
+      setUser({
+        name: "",
+        email: "",
+        password: "",
+      });
+    } catch (err) {
+      console.log(err);
+      setSuccess(false);
+    }
+  };
   return (
     <Layout>
       <div className="login-content">
-        <form>
+        <form onSubmit={onSubmit}>
           <h2 className="title">Create Account</h2>
           <div className="input-div one">
             <div className="i">
@@ -24,6 +53,9 @@ const Register = () => {
                 className="input"
                 placeholder="Name"
                 ref={focusRef}
+                name="name"
+                value={user.name}
+                onChange={onChange}
               />
             </div>
           </div>
@@ -32,7 +64,14 @@ const Register = () => {
               <MailOutlined />
             </div>
             <div className="div">
-              <input type="text" className="input" placeholder="Email" />
+              <input
+                type="text"
+                className="input"
+                placeholder="Email"
+                name="email"
+                value={user.email}
+                onChange={onChange}
+              />
             </div>
           </div>
           <div className="input-div pass">
@@ -40,7 +79,14 @@ const Register = () => {
               <LockOutlined />
             </div>
             <div className="div">
-              <input type="password" className="input" placeholder="Password" />
+              <input
+                type="password"
+                className="input"
+                placeholder="Password"
+                name="password"
+                value={user.password}
+                onChange={onChange}
+              />
             </div>
           </div>
           <div className="footer">
