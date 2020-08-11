@@ -31,7 +31,10 @@ const Login = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/auth/login", user);
+      const res = await axios.post(
+        "https://cv-builder-server.herokuapp.com/auth/login",
+        user
+      );
       dispatch({ type: "auth/setToken", payload: res.data });
     } catch (error) {
       setErr(error.response.data);

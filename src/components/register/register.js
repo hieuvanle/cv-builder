@@ -28,7 +28,10 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/auth/register", user);
+      await axios.post(
+        "https://cv-builder-server.herokuapp.com/auth/register",
+        user
+      );
       setErr("");
       setSuccess(true);
       setUser({
