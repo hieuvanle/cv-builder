@@ -53,17 +53,11 @@ const schemas = {
   }),
   optionalUserSchema: joi.object().keys({
     name: joi.string().min(4).max(24),
-    email: joi
-      .string()
-      .email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "edu"] } }),
+    email: joi.string().email({
+      minDomainSegments: 2,
+      tlds: { allow: ["com", "net", "edu", "msn"] },
+    }),
     password: joi.string().min(4).max(24),
-  }),
-  loginSchema: joi.object().keys({
-    email: joi
-      .string()
-      .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
-      .required(),
-    password: joi.string().min(6).max(12).required(),
   }),
 };
 

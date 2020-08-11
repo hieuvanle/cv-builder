@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 
 import {
@@ -8,9 +8,15 @@ import {
   Redirect,
 } from "react-router-dom";
 import { Login, Register, Home, Project } from "./components";
+import { useDispatch, useSelector } from "react-redux";
+import { getAuthToken } from "./services/cookies";
 
 function App() {
-  const [isAuth, setIsAuth] = React.useState(false);
+  const authState = useSelector((state) => state.auth);
+  const [isAuth, setIsAuth] = React.useState(authState.isAuth);
+  useEffect(() => {
+    setIsAuth(authState.isAuth);
+  }, [authState.isAuth]);
   return (
     <Router>
       <Switch>

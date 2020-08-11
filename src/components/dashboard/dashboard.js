@@ -29,10 +29,12 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import { NavLink, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const { Header, Sider, Content } = Layout;
 
 const DashBoard = (props) => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const { children, title } = props;
   //Component-Supporters
@@ -49,7 +51,9 @@ const DashBoard = (props) => {
   const onClose = () => {
     setVisible(false);
   };
-
+  const handleOnclick = () => {
+    dispatch({ type: "auth/logout" });
+  };
   const menu = (
     <Menu>
       <Menu.Item>
@@ -58,7 +62,7 @@ const DashBoard = (props) => {
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href="/" rel="noopener noreferrer">
+        <a href="/" rel="noopener noreferrer" onClick={handleOnclick}>
           Logout
         </a>
       </Menu.Item>
@@ -151,10 +155,7 @@ const DashBoard = (props) => {
                 </Popover>
               </Badge>
               <Popover content="Profile">
-                <Avatar
-                  src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                  style={{ cursor: "pointer" }}
-                />
+                <Avatar src={thomasAvatar} style={{ cursor: "pointer" }} />
               </Popover>
               <Dropdown overlay={menu} placement="bottomCenter">
                 <CaretDownOutlined style={{ cursor: "pointer" }} />

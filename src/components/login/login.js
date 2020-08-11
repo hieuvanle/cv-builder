@@ -1,33 +1,69 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "./login.css";
 
 import avatar from "../../assets/avatar.svg";
 import Layout from "../layout/layout";
-import { Checkbox } from "antd";
+import { Checkbox, Alert } from "antd";
 import { Link } from "react-router-dom";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import axios from "axios";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const focusRef = useRef(null);
   useEffect(() => {
     focusRef.current.focus();
+  }, []);
+  const dispatch = useDispatch();
+  const [err, setErr] = useState("");
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
   });
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("http://localhost:5000/auth/login", user);
+      dispatch({ type: "auth/setToken", payload: res.data });
+    } catch (error) {
+      setErr(error.response.data);
+    }
+  };
   return (
     <Layout>
       <div className="login-content">
-        <form>
+        <form onSubmit={onSubmit}>
           <img src={avatar} alt="avatar" />
-          <h2 className="title">Welcome back!</h2>
+          <h2 style={{ marginBottom: 0 }}>Welcome back!</h2>
+          {err !== "" ? (
+            <Alert
+              style={{ marginBottom: "8px" }}
+              message={err}
+              showIcon
+              type="error"
+            />
+          ) : null}
           <div className="input-div one">
             <div className="i">
               <UserOutlined />
             </div>
             <div className="div">
               <input
-                type="text"
+                type="email"
                 className="input"
                 placeholder="Email"
                 ref={focusRef}
+                name="email"
+                value={user.email}
+                onChange={onChange}
               />
             </div>
           </div>
@@ -36,7 +72,14 @@ const Login = () => {
               <LockOutlined />
             </div>
             <div className="div">
-              <input type="password" className="input" placeholder="Password" />
+              <input
+                type="password"
+                className="input"
+                placeholder="Password"
+                value={user.password}
+                onChange={onChange}
+                name="password"
+              />
             </div>
           </div>
           <div className="form-func">

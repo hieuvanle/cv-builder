@@ -14,11 +14,11 @@ const authSlice = createSlice({
   },
   reducers: {
     setToken(state, action) {
-      setAuthToken(action.payload.token);
+      setAuthToken(action.payload);
       return {
         ...state,
         isAuth: true,
-        token: action.payload.token,
+        token: action.payload,
       };
     },
     checkAuth(state, action) {

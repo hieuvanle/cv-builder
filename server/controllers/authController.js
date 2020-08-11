@@ -18,12 +18,12 @@ module.exports = {
   },
   login: async (req, res, next) => {
     try {
-      const { email, password } = req.value.body;
+      const { email, password } = req.body;
       const user = await User.findByCredentials(email, password);
       const token = user.generateToken();
       res.status(200).json(token);
     } catch (err) {
-      res.status(400).json(err);
+      res.status(400).json("Wrong email or password!");
     }
   },
 };

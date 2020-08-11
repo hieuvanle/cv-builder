@@ -21,13 +21,6 @@ form p {
   height: 100px;
 }
 
-.login-content h2 {
-  margin: 15px 0;
-  color: #333;
-
-  font-size: 2rem;
-}
-
 .login-content .input-div {
   position: relative;
   display: grid;

@@ -6,8 +6,6 @@ const { bodyValidator, schemas } = require("../middlewares/routeValidator");
 router
   .route("/register")
   .post(bodyValidator(schemas.userSchema), authController.register);
-router
-  .route("/login")
-  .post(bodyValidator(schemas.loginSchema), authController.login);
+router.route("/login").post(authController.login);
 
 module.exports = router;
