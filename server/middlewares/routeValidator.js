@@ -4,7 +4,15 @@ const bodyValidator = (schema) => {
   return (req, res, next) => {
     const result = schema.validate(req.body);
     if (result.error) {
-      return res.status(400).json(result.error);
+      console.log(result.error);
+      var message;
+      if (result.error.details[0].type === "string.email") {
+        message =
+          "Please input a valid email! Accepted domains are .com, .edu, .net, and .msn";
+      } else {
+        message = "Name & Password must be from 4 to 24 characters long";
+      }
+      return res.status(400).json(message);
     } else {
       if (!req.value) req.value = {};
       if (!req.value.body) req.value.body = {};
@@ -36,19 +44,19 @@ const schemas = {
       .required(),
   }),
   userSchema: joi.object().keys({
-    name: joi.string().min(4).max(12).required(),
+    name: joi.string().min(4).max(24).required(),
     email: joi
       .string()
       .email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "edu"] } })
       .required(),
-    password: joi.string().min(6).max(12).required(),
+    password: joi.string().min(4).max(24).required(),
   }),
   optionalUserSchema: joi.object().keys({
-    name: joi.string().min(4).max(12),
+    name: joi.string().min(4).max(24),
     email: joi
       .string()
       .email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "edu"] } }),
-    password: joi.string().min(6).max(12),
+    password: joi.string().min(4).max(24),
   }),
   loginSchema: joi.object().keys({
     email: joi

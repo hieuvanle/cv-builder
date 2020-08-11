@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import "./register.css";
 
 import Layout from "../layout/layout";
+import { Alert, Checkbox } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import axios from "axios";
 
@@ -9,13 +10,14 @@ const Register = () => {
   const focusRef = useRef(null);
   useEffect(() => {
     focusRef.current.focus();
-  });
+  }, []);
   const [user, setUser] = useState({
     name: "",
     email: "",
     password: "",
   });
-  const [success, setSuccess] = useState(null);
+  const [err, setErr] = useState("");
+  const [success, setSuccess] = useState(false);
   const onChange = (e) => {
     const { name, value } = e.target;
     setUser({
@@ -27,15 +29,16 @@ const Register = () => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:5000/auth/register", user);
+      setErr("");
       setSuccess(true);
       setUser({
         name: "",
         email: "",
         password: "",
       });
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
       setSuccess(false);
+      setErr(error.response.data);
     }
   };
   return (
@@ -43,6 +46,22 @@ const Register = () => {
       <div className="login-content">
         <form onSubmit={onSubmit}>
           <h2 className="title">Create Account</h2>
+          {err !== "" ? (
+            <Alert
+              style={{ marginBottom: "12px" }}
+              type="error"
+              showIcon
+              message={err}
+            />
+          ) : null}
+          {success ? (
+            <Alert
+              message="Register successfully!"
+              showIcon
+              type="success"
+              style={{ marginBottom: "12px" }}
+            />
+          ) : null}
           <div className="input-div one">
             <div className="i">
               <UserOutlined />
@@ -53,6 +72,7 @@ const Register = () => {
                 className="input"
                 placeholder="Name"
                 ref={focusRef}
+                required
                 name="name"
                 value={user.name}
                 onChange={onChange}
@@ -65,9 +85,10 @@ const Register = () => {
             </div>
             <div className="div">
               <input
-                type="text"
+                type="email"
                 className="input"
                 placeholder="Email"
+                required
                 name="email"
                 value={user.email}
                 onChange={onChange}
@@ -82,6 +103,7 @@ const Register = () => {
               <input
                 type="password"
                 className="input"
+                required
                 placeholder="Password"
                 name="password"
                 value={user.password}
@@ -90,10 +112,10 @@ const Register = () => {
             </div>
           </div>
           <div className="footer">
-            <p>
+            <Checkbox>
               By clicking on Sign up, you agree to CV Builder's{" "}
               <a href="/register">Terms and Conditions of Use</a>.
-            </p>
+            </Checkbox>
             <p>
               To learn more about how CV Builder collects, uses, shares and
               protects your personal data please read CV Builder's{" "}
