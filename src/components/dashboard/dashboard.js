@@ -56,12 +56,10 @@ const DashBoard = (props) => {
   const menu = (
     <Menu>
       <Menu.Item>
-        <a href="/" rel="noopener noreferrer">
-          Settings
-        </a>
+        <a rel="noopener noreferrer">Settings</a>
       </Menu.Item>
       <Menu.Item>
-        <a href="/" rel="noopener noreferrer" onClick={handleOnclick}>
+        <a href="/login" rel="noopener noreferrer" onClick={handleOnclick}>
           Logout
         </a>
       </Menu.Item>
