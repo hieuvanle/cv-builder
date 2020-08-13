@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./details-form.css";
 import { v4 as uuidv4 } from "uuid";
 
@@ -9,8 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 const { TextArea } = Input;
 const { Option } = Select;
-const { RangePicker } = DatePicker;
-
 const { Panel } = Collapse;
 
 const year = new Intl.DateTimeFormat("en", { year: "numeric" }).format(

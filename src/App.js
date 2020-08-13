@@ -8,8 +8,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import { Login, Register, Home, Project } from "./components";
-import { useDispatch, useSelector } from "react-redux";
-import { getAuthToken } from "./services/cookies";
+import { useSelector } from "react-redux";
 
 function App() {
   const authState = useSelector((state) => state.auth);
